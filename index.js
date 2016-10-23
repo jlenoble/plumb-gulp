@@ -7,6 +7,12 @@ exports.useOriginalGulpSrc = useOriginalGulpSrc;
 exports.usePlumbedGulpSrc = usePlumbedGulpSrc;
 exports.getOriginalGulpSrc = getOriginalGulpSrc;
 exports.getPlumbedGulpSrc = getPlumbedGulpSrc;
+exports.useOriginalGulpSrcOnce = useOriginalGulpSrcOnce;
+exports.useOriginalGulpSrcTwice = useOriginalGulpSrcTwice;
+exports.useOriginalGulpSrcMultipleTimes = useOriginalGulpSrcMultipleTimes;
+exports.usePlumbedGulpSrcOnce = usePlumbedGulpSrcOnce;
+exports.usePlumbedGulpSrcTwice = usePlumbedGulpSrcTwice;
+exports.usePlumbedGulpSrcMultipleTimes = usePlumbedGulpSrcMultipleTimes;
 
 var _gulp = require('gulp');
 
@@ -52,4 +58,45 @@ function getOriginalGulpSrc() {
 }
 function getPlumbedGulpSrc() {
   return src;
+}
+
+function srcMultipleFactory() {
+  var times = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+  var func = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _gulpsrc;
+
+  // Use multiple times _gulpsrc and use src afterwards or vice versa
+  times = parseInt(times, 10);
+  if (times >= 1) {
+    return function () {
+      var stream = func.apply(_gulp2.default, arguments);
+      _gulp2.default.src = srcMultipleFactory(times - 1, func);
+      return stream;
+    };
+  } else {
+    return func === _gulpsrc ? src : _gulpsrc;
+  }
+}
+
+function useOriginalGulpSrcOnce() {
+  _gulp2.default.src = srcMultipleFactory();
+}
+
+function useOriginalGulpSrcTwice() {
+  _gulp2.default.src = srcMultipleFactory(2);
+}
+
+function useOriginalGulpSrcMultipleTimes(n) {
+  _gulp2.default.src = srcMultipleFactory(n);
+}
+
+function usePlumbedGulpSrcOnce() {
+  _gulp2.default.src = srcMultipleFactory(1, src);
+}
+
+function usePlumbedGulpSrcTwice() {
+  _gulp2.default.src = srcMultipleFactory(2, src);
+}
+
+function usePlumbedGulpSrcMultipleTimes(n) {
+  _gulp2.default.src = srcMultipleFactory(n, src);
 }
