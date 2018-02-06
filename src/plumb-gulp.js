@@ -7,7 +7,7 @@ const plumberArg = {
   errorHandler: function (err) {
     notify.onError({
       title: 'Gulp Error',
-      message: 'Error: <%= error.message %>',
+      message: '<%= error.message.split(\'\\n\')[0] %>',
       sound: 'Bottle',
     })(err);
     this.emit('end');
