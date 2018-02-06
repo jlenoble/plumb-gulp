@@ -6,28 +6,26 @@ import {getOriginalGulpSrc, getPlumbedGulpSrc, useOriginalGulpSrc,
   usePlumbedGulpSrcTwice, usePlumbedGulpSrcMultipleTimes}
   from '../src/plumb-gulp';
 
-describe('plumb-gulp test suite', function() {
-
-  describe('Using multiple times original gulp.src', function() {
-
-    beforeEach(function() {
+describe('plumb-gulp test suite', function () {
+  describe('Using multiple times original gulp.src', function () {
+    beforeEach(function () {
       useOriginalGulpSrc();
     });
 
-    it('Using it once', function() {
+    it('Using it once', function () {
       useOriginalGulpSrcOnce();
       gulp.src('gulpfile.babel.js');
       expect(gulp.src).to.equal(getPlumbedGulpSrc());
     });
 
-    it('Using it twice', function() {
+    it('Using it twice', function () {
       useOriginalGulpSrcTwice();
       gulp.src('gulpfile.babel.js');
       gulp.src('gulpfile.babel.js');
       expect(gulp.src).to.equal(getPlumbedGulpSrc());
     });
 
-    it('Using it 5 times', function() {
+    it('Using it 5 times', function () {
       useOriginalGulpSrcMultipleTimes(5);
       gulp.src('gulpfile.babel.js');
       gulp.src('gulpfile.babel.js');
@@ -37,32 +35,30 @@ describe('plumb-gulp test suite', function() {
       expect(gulp.src).to.equal(getPlumbedGulpSrc());
     });
 
-    afterEach(function() {
+    afterEach(function () {
       useOriginalGulpSrc();
     });
-
   });
 
-  describe('Using multiple times plumbed gulp.src', function() {
-
-    beforeEach(function() {
+  describe('Using multiple times plumbed gulp.src', function () {
+    beforeEach(function () {
       useOriginalGulpSrc();
     });
 
-    it('Using it once', function() {
+    it('Using it once', function () {
       usePlumbedGulpSrcOnce();
       gulp.src('gulpfile.babel.js');
       expect(gulp.src).to.equal(getOriginalGulpSrc());
     });
 
-    it('Using it twice', function() {
+    it('Using it twice', function () {
       usePlumbedGulpSrcTwice();
       gulp.src('gulpfile.babel.js');
       gulp.src('gulpfile.babel.js');
       expect(gulp.src).to.equal(getOriginalGulpSrc());
     });
 
-    it('Using it 5 times', function() {
+    it('Using it 5 times', function () {
       usePlumbedGulpSrcMultipleTimes(5);
       gulp.src('gulpfile.babel.js');
       gulp.src('gulpfile.babel.js');
@@ -72,10 +68,8 @@ describe('plumb-gulp test suite', function() {
       expect(gulp.src).to.equal(getOriginalGulpSrc());
     });
 
-    afterEach(function() {
+    afterEach(function () {
       useOriginalGulpSrc();
     });
-
   });
-
 });

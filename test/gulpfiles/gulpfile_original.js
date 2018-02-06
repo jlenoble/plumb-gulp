@@ -1,7 +1,7 @@
-var gulp = require('gulp');
-var error = require('gulp-error');
+const gulp = require('gulp');
+const error = require('gulp-error');
 
-gulp.task('subtest', function() {
+gulp.task('subtest', function () {
   return gulp.src('gulpfile_original.js')
     .pipe(error());
 });
