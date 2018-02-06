@@ -1,19 +1,15 @@
 import gulp from 'gulp';
-import plumber from 'gulp-plumber';
 import autoreload from 'autoreload-gulp';
 
-import './gulp/tdd';
+import './gulp/build';
+import './gulp/clean';
+import './gulp/distclean';
+import './gulp/dist';
+import './gulp/doc';
 import './gulp/prepublish';
-
-const originalSrc = gulp.src;
-gulp.src = function() {
-  return originalSrc.apply(gulp, arguments)
-    .pipe(plumber({
-      errorHandler: function(err) {
-        console.error(err);
-        this.emit('end');
-      }
-    }));
-};
+import './gulp/test';
+import './gulp/tdd';
+import './gulp/watch';
+import './gulp/lint';
 
 gulp.task('default', autoreload('tdd'));

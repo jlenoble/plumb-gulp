@@ -1,11 +1,14 @@
 import gulp from 'gulp';
 import mocha from 'gulp-mocha';
-
-import {testBuildGlob} from './globs';
 import './build';
 
+const testGlob = [
+  'build/test/**/*.test.js',
+  'build/docs/examples/**/*.test.js',
+];
+
 export const test = () => {
-  return gulp.src(testBuildGlob)
+  return gulp.src(testGlob)
     .pipe(mocha());
 };
 
