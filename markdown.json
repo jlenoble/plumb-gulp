@@ -1,0 +1,7 @@
+{
+  "build": "README.md",
+  "files": ["docs/index.md"],
+  "tableOfContents": {
+    "heading": "# plumb-gulp\n\nA small utility to plumb and unplumb Gulp at will"
+  }
+}
