@@ -2,7 +2,7 @@
   "name": "plumb-gulp",
   "version": "0.1.0",
   "description": "A small utility to plumb and unplumb Gulp at will",
-  "main": "index.js",
+  "main": "lib/plumb-gulp.js",
   "scripts": {
     "test": "gulp test"
   },
