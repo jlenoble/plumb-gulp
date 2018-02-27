@@ -54,6 +54,12 @@ The functions `useOriginalGulpSrcOnce`, `useOriginalGulpSrcTwice`,
 
 You can access the original `gulp.src` method or the plumbed one any time by using the getters `getOriginalGulpSrc` and `getPlumbedGulpSrc`.
 
+## Options
+
+When calling `usePlumbedGulpSrc`, you may pass an object with the following options:
+
+* `filterout`: A function that receives the error to be reported and checks on patterns, returning true if one of the patterns is matched.
+
 ## License
 
 plumb-gulp is [MIT licensed](./LICENSE).
