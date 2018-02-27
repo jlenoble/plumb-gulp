@@ -3,29 +3,45 @@ import gulp from 'gulp';
 import notify from 'gulp-notify';
 import plumber from 'gulp-plumber';
 
-const plumberArg = {
-  errorHandler: function (err) {
-    notify.onError({
-      title: 'Gulp Error',
-      message: '<%= error.message.split(\'\\n\')[0] %>',
-      sound: 'Bottle',
-    })(err);
-    this.emit('end');
-  },
+const plumberArg = options => {
+  return {
+    errorHandler: function (err) {
+      const opts = {
+        title: 'Gulp Error',
+        message: '<%= error.message.split(\'\\n\')[0] %>',
+        sound: 'Bottle',
+      };
+
+      if (!options || !options.filterout || !options.filterout(err)) {
+        notify.onError(opts)(err);
+      }
+
+      this.emit('end');
+    },
+  };
 };
 
 const _gulpsrc = gulp.src;
 
-function src (...args) {
-  return _gulpsrc.apply(gulp, args)
-    .pipe(plumber(plumberArg));
+const newSrc = options => {
+  if (options || !src) {
+    return function (...args) {
+      return _gulpsrc.apply(gulp, args)
+        .pipe(plumber(plumberArg(options)));
+    };
+  }
+
+  return src;
 };
+
+let src = newSrc();
 
 export function useOriginalGulpSrc () {
   gulp.src = _gulpsrc;
 }
 
-export function usePlumbedGulpSrc () {
+export function usePlumbedGulpSrc (options) {
+  src = newSrc(options);
   gulp.src = src;
 }
 
