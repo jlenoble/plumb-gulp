@@ -1,21 +1,17 @@
 import gulp from 'gulp';
 
-import notify from 'gulp-notify';
+import gutil from 'gulp-util';
 import plumber from 'gulp-plumber';
 
 const plumberArg = options => {
   return {
     errorHandler: function (err) {
-      const opts = {
-        title: 'Gulp Error',
-        message: '<%= error.message.split(\'\\n\')[0] %>',
-        sound: 'Bottle',
-      };
-
       if (!options || !options.filterout || !options.filterout(err)) {
-        notify.onError(opts)(err);
+        gutil.log(err.message);
       }
 
+      // Hack not to hang gulp tasks
+      this.emit('finish');
       this.emit('end');
     },
   };
