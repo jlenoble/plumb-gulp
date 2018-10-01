@@ -23,7 +23,7 @@ describe('plumb-gulp test suite', function () {
 
     it('gulp hangs/breaks on error', function () {
       return gulpTest('gulpfile_original.js').catch(err => {
-        if (err.toString().match(
+        if (err.result.err().match(
           /Intentional error when processing file gulpfile_original.js/)) {
           // Expected
         } else {
