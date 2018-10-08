@@ -1,13 +1,12 @@
 import gulp from 'gulp';
-
-import gutil from 'gulp-util';
+import log from 'fancy-log';
 import plumber from 'gulp-plumber';
 
 const plumberArg = options => {
   return {
     errorHandler: function (err) {
       if (!options || !options.filterout || !options.filterout(err)) {
-        gutil.log(err.message);
+        log(err.message);
       }
 
       // Hack not to hang gulp tasks

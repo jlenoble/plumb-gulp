@@ -30,7 +30,7 @@
     "babel-plugin-add-module-exports": "^1.0.0",
     "babel-preset-env": "^1.7.0",
     "chai": "^4.2.0",
-    "child-process-data": "^0.6.6",
+    "child-process-data": "^0.7.0",
     "del": "^3.0.0",
     "eslint-config-google": "^0.10.0",
     "gulp": "^4.0.0",
@@ -46,6 +46,10 @@
     "muter": "^0.6.0"
   },
   "dependencies": {
+    "fancy-log": "^1.3.2",
     "gulp-plumber": "^1.1.0"
+  },
+  "peerDependencies": {
+    "gulp": "^4.0.0"
   }
 }
